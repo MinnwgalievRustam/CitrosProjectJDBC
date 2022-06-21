@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+<div th:each="assignment : ${assignments}">
+    <a th:href="@{/assignments/{id}(id=${assignment.getId()})}"
+       th:text="${assignment.getTextOrder() + ', ' + assignment.getSubjectOrder() + ', ' +assignment.getSignPerformance() + ', ' +assignment.getSignControl()}">user</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/assignments/new">Добавить поручение</a>
+
+</body>
+</html>

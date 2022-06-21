@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Show</title>
+</head>
+<body>
+<p th:text="${user.getSurname() + ', ' + user.getName() + ', ' + user.getLastName() + ', ' +user.getJobTitle()}">VALUE</p>
+
+<div th:if="${owner}">
+    <span>текст: </span> <span th:text="${owner.getSubjectOrder()}">Name</span>
+
+    <form th:method="PATCH" th:action="@{/users/{id}/release(id=${user.getId()})}">
+        <input type="submit" value="Освободить книгу"/>
+    </form>
+</div>
+
+<div th:if="${assignments}">
+    <span>Какое поручение назначить?</span>
+    <form th:method="PATCH" th:action="@{/users/{id}/assign(id=${user.getId()})}">
+        <label for="assignment">Выберите поручение</label>
+        <select th:object="${assignment}" th:field="*{id}" id="assignment">
+            <option th:each="assignmentss : ${assignments}" th:value="${assignmentss.getId()}" th:text="${assignmentss.getSubjectOrder()}">
+            </option>
+        </select>
+        <input type="submit" value="Назначить поручение"/>
+    </form>
+</div>
+
+<hr/>
+
+<form th:method="GET" th:action="@{/users/{id}/edit(id=${user.getId()})}">
+    <input type="submit" value="Редактировать"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+    <input type="submit" value="Удалить"/>
+</form>
+
+</body>
+</html>
